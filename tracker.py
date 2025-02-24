@@ -12,10 +12,17 @@ import json
 #    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 #)
 #client = gspread.authorize(credentials)
-
-service_account_info = json.loads(st.secrets["google_credentials"])
+# Load credentials from Streamlit secrets (NO json.loads needed)
+service_account_info = st.secrets["gcp_service_account"]
 credentials = Credentials.from_service_account_info(service_account_info)
 client = gspread.authorize(credentials)
+
+# Open Google Sheet
+try:
+    sheet = client.open("Exercise template").sheet1
+    st.write("✅ Google Sheet opened successfully!")
+except Exception as e:
+    st.error(f"❌ Failed to open Google Sheet: {e}")
 
 # Exercise dictionary (examples of exercises with muscle groups)
 exercise_dict = {
