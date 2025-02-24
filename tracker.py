@@ -12,9 +12,16 @@ import json
 #    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 #)
 #client = gspread.authorize(credentials)
-# Load credentials from Streamlit secrets (NO json.loads needed)
+
+# Define the correct OAuth scopes
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",  # Add this scope
+    "https://www.googleapis.com/auth/drive"        # Add full Drive access (optional)
+]
+# Load credentials from Streamlit secrets
 service_account_info = st.secrets["gcp_service_account"]
-credentials = Credentials.from_service_account_info(service_account_info)
+credentials = Credentials.from_service_account_info(service_account_info, scopes=SCOPES)
 client = gspread.authorize(credentials)
 
 # Open Google Sheet
