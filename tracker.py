@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # Google Sheets Credentials
 credentials = Credentials.from_service_account_file(
-    "https://github.com/Killie154/Tracker/blob/main/credentials.json",  # Ensure this file exists in your working directory
+    "/Tracker/credentials.json",  # Ensure this file exists in your working directory
     scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 )
 client = gspread.authorize(credentials)
