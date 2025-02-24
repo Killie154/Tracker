@@ -12,17 +12,16 @@ import matplotlib.pyplot as plt
 #)
 #client = gspread.authorize(credentials)
 
-# Load credentials from Streamlit secrets
-import streamlit as st
-
-try:
-    service_account_info = st.secrets["gcp_service_account"]
-    st.write("Google credentials loaded successfully!")  # Debugging
-except KeyError:
-    st.error("Google credentials not found! Check your Streamlit secrets.")
-
+service_account_info = st.secrets["gcp_service_account"]
 credentials = Credentials.from_service_account_info(service_account_info)
-client = gspread.authorize(credentials)
+client = gspread.authorize(credentials)  # Ensure client is created
+
+# Open the Google Sheet (replace with the correct sheet name)
+try:
+    sheet = client.open("Exercise template").sheet1
+    st.write("Google Sheet opened successfully!")  # Debugging
+except Exception as e:
+    st.error(f"Failed to open Google Sheet: {e}")
 
 # Exercise dictionary (examples of exercises with muscle groups)
 exercise_dict = {
