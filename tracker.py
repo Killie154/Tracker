@@ -21,6 +21,8 @@ try:
 except KeyError:
     st.error("Google credentials not found! Check your Streamlit secrets.")
 
+credentials = Credentials.from_service_account_info(service_account_info)
+client = gspread.authorize(credentials)
 
 # Exercise dictionary (examples of exercises with muscle groups)
 exercise_dict = {
