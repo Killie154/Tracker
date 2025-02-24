@@ -6,10 +6,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Google Sheets Credentials
-credentials = Credentials.from_service_account_file(
-    "/workspaces/Tracker/credentials.json",  # Ensure this file exists in your working directory
-    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-)
+#credentials = Credentials.from_service_account_file(
+#    "/workspaces/Tracker/credentials.json",  # Ensure this file exists in your working directory
+#    scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+#)
+#client = gspread.authorize(credentials)
+
+# Load credentials from Streamlit secrets
+service_account_info = st.secrets["gcp_service_account"]
+credentials = Credentials.from_service_account_info(service_account_info)
 client = gspread.authorize(credentials)
 
 # Exercise dictionary (examples of exercises with muscle groups)
