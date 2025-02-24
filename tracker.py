@@ -13,9 +13,14 @@ import matplotlib.pyplot as plt
 #client = gspread.authorize(credentials)
 
 # Load credentials from Streamlit secrets
-service_account_info = st.secrets["gcp_service_account"]
-credentials = Credentials.from_service_account_info(service_account_info)
-client = gspread.authorize(credentials)
+import streamlit as st
+
+try:
+    service_account_info = st.secrets["gcp_service_account"]
+    st.write("Google credentials loaded successfully!")  # Debugging
+except KeyError:
+    st.error("Google credentials not found! Check your Streamlit secrets.")
+
 
 # Exercise dictionary (examples of exercises with muscle groups)
 exercise_dict = {
